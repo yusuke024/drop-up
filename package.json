@@ -1,0 +1,18 @@
+{
+  "name": "drop-up",
+  "main": "./lib/drop-up",
+  "version": "0.0.0",
+  "description": "A short description of your package",
+  "keywords": [
+  ],
+  "activationCommands": {
+    "atom-workspace": "drop-up:toggle"
+  },
+  "repository": "https://github.com/atom/drop-up",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=0.174.0 <2.0.0"
+  },
+  "dependencies": {
+  }
+}
