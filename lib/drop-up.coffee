@@ -10,9 +10,10 @@ module.exports = DropUp =
     # Register command that toggles this view
     @subscriptions.add atom.workspace.observeTextEditors (editor) =>
       editorView = atom.views.getView editor
-      editorView.addEventListener 'dragover', (e) =>
+      editorView.addEventListener 'drop', (e) =>
         e.preventDefault?()
-        console.log e
+        e.stopPropagation?()
+        console.log "#{file.name} - #{file.type}" for file in e.dataTransfer.files
 
 
   deactivate: ->
