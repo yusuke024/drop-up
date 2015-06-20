@@ -5,9 +5,6 @@
   "description": "A short description of your package",
   "keywords": [
   ],
-  "activationCommands": {
-    "atom-workspace": "drop-up:toggle"
-  },
   "repository": "https://github.com/atom/drop-up",
   "license": "MIT",
   "engines": {
