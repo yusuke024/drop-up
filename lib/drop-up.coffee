@@ -1,4 +1,5 @@
 {CompositeDisposable} = require 'atom'
+request = require 'request'
 
 module.exports = DropUp =
   subscriptions: null
@@ -13,7 +14,25 @@ module.exports = DropUp =
       editorView.addEventListener 'drop', (e) =>
         e.preventDefault?()
         e.stopPropagation?()
-        console.log "#{file.name} - #{file.type}" for file in e.dataTransfer.files
+
+        files = e.dataTransfer.files
+
+        f = files[0]
+
+        reader = new FileReader
+
+        reader.onloadend = =>
+          options =
+            url: "https://api.imgur.com/3/image"
+            headers:
+              Authorization: "Client-ID xxxxxxxxxxxxxxx"
+            formData:
+              image: new Buffer new Uint8Array reader.result
+
+          request.post options, (err, resp, body) =>
+            console.log body
+
+        reader.readAsArrayBuffer files[0]
 
 
   deactivate: ->
