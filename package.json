@@ -1,10 +1,9 @@
 {
   "name": "drop-up",
   "main": "./lib/drop-up",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "A short description of your package",
-  "keywords": [
-  ],
+  "keywords": [],
   "repository": "https://github.com/sikhapol/drop-up",
   "author": {
     "name": "Sikhaol Saijit",
