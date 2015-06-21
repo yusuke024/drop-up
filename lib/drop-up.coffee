@@ -30,7 +30,6 @@ module.exports = DropUp =
               image: new Buffer new Uint8Array reader.result
 
           request.post options, (err, resp, body) =>
-            console.log body
             json = JSON.parse body
             editor.insertText "![#{f.name}](#{json.data.link})"
 
