@@ -5,7 +5,12 @@
   "description": "A short description of your package",
   "keywords": [
   ],
-  "repository": "https://github.com/atom/drop-up",
+  "repository": "https://github.com/sikhapol/drop-up",
+  "author": {
+    "name": "Sikhaol Saijit",
+    "email": "sikhapol@gmail.com",
+    "url": "http://sikhapol.com"
+  },
   "license": "MIT",
   "engines": {
     "atom": ">=0.174.0 <2.0.0"
