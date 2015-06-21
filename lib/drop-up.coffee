@@ -25,7 +25,7 @@ module.exports = DropUp =
           options =
             url: "https://api.imgur.com/3/image"
             headers:
-              Authorization: "Client-ID xxxxxxxxxxxxxxx"
+              Authorization: "Client-ID cf92c740bb37b86"
             formData:
               image: new Buffer new Uint8Array reader.result
 
