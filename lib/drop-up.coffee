@@ -31,6 +31,8 @@ module.exports = DropUp =
 
           request.post options, (err, resp, body) =>
             console.log body
+            json = JSON.parse body
+            editor.insertText "![#{f.name}](#{json.data.link})"
 
         reader.readAsArrayBuffer files[0]
 
