@@ -1,5 +1,4 @@
 {CompositeDisposable} = require 'atom'
-request = require 'request'
 
 module.exports = DropUp =
   subscriptions: null
