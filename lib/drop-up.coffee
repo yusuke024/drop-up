@@ -19,22 +19,19 @@ module.exports = DropUp =
 
         f = files[0]
 
-        reader = new FileReader
+        formData = new FormData
+        formData.append "image", f
 
-        reader.onloadend = =>
-          options =
-            url: "https://api.imgur.com/3/image"
-            headers:
-              Authorization: "Client-ID cf92c740bb37b86"
-            formData:
-              image: new Buffer new Uint8Array reader.result
+        xhr = new XMLHttpRequest
+        xhr.open "POST", "https://api.imgur.com/3/image", true
+        xhr.setRequestHeader "Authorization", "Client-ID cf92c740bb37b86"
 
-          request.post options, (err, resp, body) =>
-            json = JSON.parse body
+        xhr.onreadystatechange = ->
+          if this.readyState == 4 and this.status == 200
+            json = JSON.parse xhr.responseText
             editor.insertText "![#{f.name}](#{json.data.link})"
 
-        reader.readAsArrayBuffer files[0]
-
+        xhr.send formData
 
   deactivate: ->
     @subscriptions.dispose()
