@@ -1,7 +1,7 @@
 {
   "name": "drop-up",
   "main": "./lib/drop-up",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A short description of your package",
   "keywords": [],
   "repository": "https://github.com/sikhapol/drop-up",
@@ -14,6 +14,5 @@
   "engines": {
     "atom": ">=0.174.0 <2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
