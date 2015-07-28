@@ -2,7 +2,7 @@
   "name": "drop-up",
   "main": "./lib/drop-up",
   "version": "0.2.0",
-  "description": "Drag and drop image files to editor, upload and insert link, Github style.",
+  "description": "Drag and drop image files to editor, upload and insert link, GitHub style.",
   "keywords": [],
   "repository": "https://github.com/sikhapol/drop-up",
   "author": {

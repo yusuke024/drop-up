@@ -1,5 +1,10 @@
-# drop-up package
+# Drop Up package
 
-A short description of your package.
+Drag and drop image files to editor, upload and insert link, GitHub style.
 
-![A screenshot of your package](https://f.cloud.github.com/assets/69169/2290250/c35d867a-a017-11e3-86be-cd7c5bf3ff9b.gif)
+![screenshot.gif](http://i.imgur.com/5Jp1iJj.gif)
+
+## Installation
+```
+apm install drop-up
+```
