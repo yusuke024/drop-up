@@ -8,9 +8,9 @@ module.exports = DropUp =
     @subscriptions = new CompositeDisposable
 
     # Register command that toggles this view
-    @subscriptions.add atom.workspace.observeTextEditors (editor) =>
-      editorView = atom.views.getView editor
-      editorView.addEventListener 'drop', (e) =>
+    @subscriptions.add atom.workspace.observeTextEditors (textEditor) ->
+      textEditorElement = atom.views.getView textEditor
+      textEditorElement.addEventListener 'drop', (e) ->
         e.preventDefault?()
         e.stopPropagation?()
 
@@ -28,7 +28,7 @@ module.exports = DropUp =
         xhr.onreadystatechange = ->
           if this.readyState == 4 and this.status == 200
             json = JSON.parse xhr.responseText
-            editor.insertText "![#{f.name}](#{json.data.link})"
+            textEditor.insertText "![#{f.name}](#{json.data.link})"
 
         xhr.send formData
 
