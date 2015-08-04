@@ -18,6 +18,9 @@ module.exports = DropUp =
 
         for f in (files[i] for i in [0...files.length])
           do (f) ->
+            range = textEditor.insertText "[...Uploading #{f.name}...]"
+            marker = textEditor.markBufferRange range[0]
+
             formData = new FormData
             formData.append "image", f
 
@@ -27,9 +30,8 @@ module.exports = DropUp =
 
             xhr.onreadystatechange = ->
               if this.readyState == 4 and this.status == 200
-                console.log f.name
                 json = JSON.parse this.responseText
-                textEditor.insertText "![#{f.name}](#{json.data.link})"
+                textEditor.setTextInBufferRange marker.getBufferRange(), "![#{f.name}](#{json.data.link})"
 
             xhr.send formData
 
