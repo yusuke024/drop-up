@@ -1,5 +1,7 @@
 {CompositeDisposable} = require 'atom'
 
+supportedScopes = new Set ['source.gfm', 'text.plain.null-grammar']
+
 module.exports = DropUp =
   subscriptions: null
 
@@ -11,6 +13,9 @@ module.exports = DropUp =
     @subscriptions.add atom.workspace.observeTextEditors (textEditor) ->
       textEditorElement = atom.views.getView textEditor
       textEditorElement.addEventListener 'drop', (e) ->
+        if not supportedScopes.has textEditor.getRootScopeDescriptor().getScopesArray()[0]
+          return
+
         e.preventDefault?()
         e.stopPropagation?()
 
