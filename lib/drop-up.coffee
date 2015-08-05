@@ -19,7 +19,7 @@ module.exports = DropUp =
         for f in (files[i] for i in [0...files.length])
           do (f) ->
             range = textEditor.insertText "[uploading #{f.name}...0%]"
-            marker = textEditor.markBufferRange range[0]
+            marker = textEditor.markBufferRange range[0], {invalidate: 'inside'}
 
             formData = new FormData
             formData.append "image", f
