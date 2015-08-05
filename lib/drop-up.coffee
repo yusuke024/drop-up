@@ -18,7 +18,7 @@ module.exports = DropUp =
 
         for f in (files[i] for i in [0...files.length])
           do (f) ->
-            range = textEditor.insertText "[...Uploading #{f.name}...]"
+            range = textEditor.insertText "[uploading #{f.name}...0%]"
             marker = textEditor.markBufferRange range[0]
 
             formData = new FormData
@@ -32,6 +32,11 @@ module.exports = DropUp =
               if this.readyState == 4 and this.status == 200
                 json = JSON.parse this.responseText
                 textEditor.setTextInBufferRange marker.getBufferRange(), "![#{f.name}](#{json.data.link})"
+                marker.destroy()
+
+            xhr.upload.onprogress = (e) ->
+              percent = Math.floor(e.loaded / e.total * 100)
+              textEditor.setTextInBufferRange marker.getBufferRange(), "[uploading #{f.name}...#{percent}%]"
 
             xhr.send formData
 
