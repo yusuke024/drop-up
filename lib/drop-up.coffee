@@ -16,13 +16,13 @@ module.exports = DropUp =
         if not supportedScopes.has textEditor.getRootScopeDescriptor().getScopesArray()[0]
           return
 
-        e.preventDefault?()
-        e.stopPropagation?()
-
         files = e.dataTransfer.files
 
-        for f in (files[i] for i in [0...files.length])
+        for f in (files[i] for i in [0...files.length]) when f.type.match "image/.*"
           do (f) ->
+            e.preventDefault?()
+            e.stopPropagation?()
+
             range = textEditor.insertText "[uploading #{f.name}...0%]"
             marker = textEditor.markBufferRange range[0], {invalidate: 'inside'}
 
