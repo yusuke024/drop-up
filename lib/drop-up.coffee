@@ -1,6 +1,19 @@
 {CompositeDisposable} = require 'atom'
 
-supportedScopes = new Set ['source.gfm', 'text.plain.null-grammar']
+# TODO: Read this from settings
+supportedScopes =
+  'text.plain.null-grammar':
+    loading: '#{name} (#{percent}%)'
+    finished: '#{name} (#{link})'
+  'source.gfm':
+    loading: '[uploading #{name}...#{percent}%]'
+    finished: '![#{name}](#{link})'
+  'text.html.basic':
+    loading: '<!-- uploading #{name}...#{percent}% -->'
+    finished: '<img src="#{link}" alt="#{name}">'
+  'source.css':
+    loading: 'url(/* #{name}...#{percent}% */);'
+    finished: 'url(#{link});'
 
 module.exports = DropUp =
   subscriptions: null
@@ -13,7 +26,8 @@ module.exports = DropUp =
     @subscriptions.add atom.workspace.observeTextEditors (textEditor) ->
       textEditorElement = atom.views.getView textEditor
       textEditorElement.addEventListener 'drop', (e) ->
-        if not supportedScopes.has textEditor.getRootScopeDescriptor().getScopesArray()[0]
+        scope = textEditor.getRootScopeDescriptor().getScopesArray()[0]
+        if not (scope of supportedScopes)
           return
 
         files = e.dataTransfer.files
@@ -23,7 +37,7 @@ module.exports = DropUp =
             e.preventDefault?()
             e.stopPropagation?()
 
-            range = textEditor.insertText "[uploading #{f.name}...0%]"
+            range = textEditor.insertText supportedScopes[scope].loading.replace(/#\{name\}/g, f.name).replace(/#\{percent\}/g, "0")
             marker = textEditor.markBufferRange range[0], {invalidate: 'inside'}
 
             formData = new FormData
@@ -36,12 +50,12 @@ module.exports = DropUp =
             xhr.onreadystatechange = ->
               if this.readyState == 4 and this.status == 200
                 json = JSON.parse this.responseText
-                textEditor.setTextInBufferRange marker.getBufferRange(), "![#{f.name}](#{json.data.link})"
+                textEditor.setTextInBufferRange marker.getBufferRange(), supportedScopes[scope].finished.replace(/#\{name\}/g, f.name).replace(/#\{link\}/g, json.data.link)
                 marker.destroy()
 
             xhr.upload.onprogress = (e) ->
               percent = Math.floor(e.loaded / e.total * 100)
-              textEditor.setTextInBufferRange marker.getBufferRange(), "[uploading #{f.name}...#{percent}%]"
+              textEditor.setTextInBufferRange marker.getBufferRange(), supportedScopes[scope].loading.replace(/#\{name\}/g, f.name).replace(/#\{percent\}/g, "#{percent}")
 
             xhr.send formData
 
