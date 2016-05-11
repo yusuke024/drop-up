@@ -16,6 +16,18 @@ supportedScopes =
     finished: 'url(#{link});'
 
 module.exports = DropUp =
+
+  # Configuration
+  config:
+    apiEndPoint:
+      type: 'string'
+      default: 'https://api.imgur.com/3/image'
+      title: 'API End Point'
+    authorizationHeader:
+      type: 'string'
+      default: 'Client-ID cf92c740bb37b86'
+      title: 'Authorization Header'
+
   subscriptions: null
 
   activate: (state) ->
@@ -44,8 +56,8 @@ module.exports = DropUp =
             formData.append "image", f
 
             xhr = new XMLHttpRequest
-            xhr.open "POST", "https://api.imgur.com/3/image", true
-            xhr.setRequestHeader "Authorization", "Client-ID cf92c740bb37b86"
+            xhr.open "POST", atom.config.get('drop-up.apiEndPoint'), true
+            xhr.setRequestHeader "Authorization", atom.config.get('drop-up.authorizationHeader')
 
             xhr.onreadystatechange = ->
               if this.readyState == 4 and this.status == 200
