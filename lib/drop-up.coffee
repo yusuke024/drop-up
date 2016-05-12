@@ -23,8 +23,10 @@ module.exports =
       textEditorElement = atom.views.getView textEditor
       textEditorElement.addEventListener "drop", (e) ->
         scope = textEditor.getRootScopeDescriptor()
-        # if not (scope of supportedScopes.getScopesArray()[0])
-        #   return
+
+        # Unsupported scope
+        if atom.config.getAll("drop-up.format", scope: scope).length == 1
+          return
 
         files = e.dataTransfer.files
 
