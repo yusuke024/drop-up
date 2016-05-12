@@ -1,50 +1,51 @@
 module.exports =
   config:
     enable:
-      type: 'boolean'
-      default: false
-    enableUnknown:
-      type: 'boolean'
+      type: "boolean"
       default: true
     apiEndPoint:
-      type: 'string'
-      default: 'https://api.imgur.com/3/image'
-      title: 'API End Point'
+      type: "string"
+      default: "https://api.imgur.com/3/image"
+      title: "API End Point"
     authorizationHeader:
-      type: 'string'
-      default: 'Client-ID cf92c740bb37b86'
-      title: 'Authorization Header'
+      type: "string"
+      default: "Client-ID cf92c740bb37b86"
+      title: "Authorization Header"
+    insertNewLineBetweenMultipleFiles:
+      type: "boolean"
+      default: true
+      title: "Insert New Line Between Multiple Files"
     format:
-      type: 'object'
-      title: 'Format'
+      type: "object"
+      title: "Format"
       properties:
         loading:
-          type: 'string'
-          default: '{{name}} ({{percent}}%)'
-          title: 'Loading'
+          type: "string"
+          default: "{{name}} ({{percent}}%)"
+          title: "Loading"
         success:
-          type: 'string'
-          default: '{{name}} ({{link}})'
-          title: 'Success'
+          type: "string"
+          default: "{{name}} ({{link}})"
+          title: "Success"
         fail:
-          type: 'string'
-          default: '{{name}} failed to upload'
-          title: 'Fail'
+          type: "string"
+          default: "{{name}} failed to upload"
+          title: "Fail"
 
   preset:
-    '.source.gfm':
+    ".source.gfm":
       format:
-        loading: '[uploading {{name}}...{{percent}}%]'
-        success: '![{{name}}]({{link}})'
-    '.text.html.basic':
+        loading: "[uploading {{name}}...{{percent}}%]"
+        success: "![{{name}}]({{link}})"
+    ".text.html.basic":
       format:
-        loading: '<!-- uploading {{name}}...{{percent}}% -->'
-        success: '<img src="{{link}}" alt="{{name}}">'
-    '.source.css':
+        loading: "<!-- uploading {{name}}...{{percent}}% -->"
+        success: "<img src=\"{{link}}\" alt=\"{{name}}\">"
+    ".source.css":
       format:
-        loading: 'url(/* {{name}}...{{percent}}% */);'
-        success: 'url({{link}});'
+        loading: "url(/* {{name}}...{{percent}}% */);"
+        success: "url({{link}});"
 
   setPreset: (preset) ->
     for k, v of preset
-      atom.config.set('drop-up', v, scopeSelector: k)
+      atom.config.set("drop-up", v, scopeSelector: k)

@@ -30,10 +30,13 @@ module.exports =
 
         files = e.dataTransfer.files
 
-        for f in (files[i] for i in [0...files.length]) when f.type.match "image/.*"
-          do (f) ->
+        for f, i in (files[i] for i in [0...files.length]) when f.type.match "image/.*"
+          do (f, i) ->
             e.preventDefault?()
             e.stopPropagation?()
+
+            if i > 0 and atom.config.get("drop-up.insertNewLineBetweenMultipleFiles")
+              textEditor.insertText "\n"
 
             range = textEditor.insertText atom.config.get("drop-up.format.loading", scope: scope).replace(/\{\{ *name *\}\}/g, f.name).replace(/\{\{ *percent *\}\}/g, "0")
             marker = textEditor.markBufferRange range[0], {invalidate: "inside"}
