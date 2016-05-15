@@ -11,9 +11,9 @@ module.exports =
   activate: (state) ->
 
     # Set preset message formats for the first activation
-    if atom.config.get("drop-up.setPreset") ? true
-      atom.config.set("drop-up.setPreset", false)
-      setPreset(preset)
+    if atom.config.get "drop-up.setPreset" ? true
+      atom.config.set "drop-up.setPreset", false
+      setPreset preset
 
     # Events subscribed to in atom"s system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -35,7 +35,7 @@ module.exports =
             e.preventDefault?()
             e.stopPropagation?()
 
-            if i > 0 and atom.config.get("drop-up.insertNewLineBetweenMultipleFiles")
+            if i > 0 and atom.config.get "drop-up.insertNewLineBetweenMultipleFiles"
               textEditor.insertText "\n"
 
             range = textEditor.insertText atom.config.get("drop-up.format.loading", scope: scope).replace(/\{\{ *name *\}\}/g, f.name).replace(/\{\{ *percent *\}\}/g, "0")

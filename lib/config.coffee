@@ -1,8 +1,5 @@
 module.exports =
   config:
-    enable:
-      type: "boolean"
-      default: true
     apiEndPoint:
       type: "string"
       default: "https://api.imgur.com/3/image"
@@ -27,10 +24,6 @@ module.exports =
           type: "string"
           default: "{{name}} ({{link}})"
           title: "Success"
-        fail:
-          type: "string"
-          default: "{{name}} failed to upload"
-          title: "Fail"
 
   preset:
     ".source.gfm":
