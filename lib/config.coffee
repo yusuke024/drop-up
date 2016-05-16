@@ -20,10 +20,12 @@ module.exports =
           type: "string"
           default: "{{name}} ({{percent}}%)"
           title: "Loading"
+          description: "`{{name}}` will be replaced with the actual file name\n`{{percent}}` will be replaced by the percentage uploaded"
         success:
           type: "string"
           default: "{{name}} ({{link}})"
           title: "Success"
+          description: "`{{name}}` will be replaced with the actual file name\n`{{link}}` will be replaced by the final link to the image"
 
   preset:
     ".source.gfm":
